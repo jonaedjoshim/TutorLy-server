@@ -81,7 +81,9 @@ exports.updateStatus = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Status must be accepted or rejected' });
     }
 
-    const application = await Application.findById(req.params.id).populate('post');
+    const application = await Application.findById(req.params.id)
+      .populate('post')
+      .populate('tutor', 'name location');
     if (!application) {
       return res.status(404).json({ success: false, message: 'Application not found' });
     }
