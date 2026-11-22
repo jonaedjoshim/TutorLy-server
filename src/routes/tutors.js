@@ -4,7 +4,9 @@ const { body } = require('express-validator');
 const auth = require('../middleware/auth');
 const role = require('../middleware/role');
 const validate = require('../middleware/validate');
+const { upload } = require('../middleware/upload');
 const tutorController = require('../controllers/tutorController');
+const documentController = require('../controllers/documentController');
 
 router.get('/', tutorController.listTutors);
 router.get('/me', auth, role('tutor'), tutorController.getMyProfile);
@@ -22,6 +24,23 @@ router.put(
   ],
   validate,
   tutorController.updateMyProfile
+);
+
+router.post(
+  '/me/documents',
+  auth,
+  role('tutor'),
+  upload.array('documents', 5),
+  documentController.uploadDocuments
+);
+
+router.get('/me/documents/:filename', auth, documentController.downloadDocument);
+
+router.delete(
+  '/me/documents/:filename',
+  auth,
+  role('tutor'),
+  documentController.removeDocument
 );
 
 router.get('/:id', tutorController.getTutor);
