@@ -1,5 +1,9 @@
+const dns = require('node:dns');
 const mongoose = require('mongoose');
 const { env } = require('./env');
+
+// Use public resolvers: some networks refuse MongoDB Atlas SRV lookups.
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 
 const connectDB = async () => {
   mongoose.set('strictQuery', true);
