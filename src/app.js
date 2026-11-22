@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 
 const { env } = require('./config/env');
 const healthRoutes = require('./routes/health');
+const authRoutes = require('./routes/auth');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -36,8 +37,17 @@ const apiLimiter = rateLimit({
   message: { success: false, message: 'Too many requests. Please slow down.' },
 });
 
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 30,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+  message: { success: false, message: 'Too many sign-in attempts. Try again later.' },
+});
+
 app.use('/api', apiLimiter);
 app.use('/api/health', healthRoutes);
+app.use('/api/auth', authLimiter, authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
