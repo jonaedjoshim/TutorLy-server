@@ -7,6 +7,7 @@ const { env } = require('./config/env');
 const healthRoutes = require('./routes/health');
 const authRoutes = require('./routes/auth');
 const tutorRoutes = require('./routes/tutors');
+const postRoutes = require('./routes/posts');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -50,6 +51,7 @@ app.use('/api', apiLimiter);
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/tutors', tutorRoutes);
+app.use('/api/posts', postRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
