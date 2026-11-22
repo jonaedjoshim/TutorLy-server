@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+process.env.MONGOMS_VERSION = process.env.MONGOMS_VERSION || '7.0.14';
+
 const assert = require('node:assert/strict');
 const path = require('node:path');
 const { MongoMemoryServer } = require('mongodb-memory-server');

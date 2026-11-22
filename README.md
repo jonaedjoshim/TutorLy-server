@@ -17,6 +17,14 @@ npm run dev
 
 Health check: `GET http://localhost:5000/api/health`
 
+## Tests
+
+```bash
+npm test
+```
+
+Runs an end-to-end API smoke test against a temporary in-memory MongoDB. No external database needed. The first run downloads a MongoDB binary (a few hundred MB), so allow a few minutes.
+
 ## Seed demo data
 
 ```bash
@@ -59,3 +67,7 @@ Demo accounts:
 | GET/PUT | `/api/admin/posts/...` | admin | Review queue |
 | GET/PUT | `/api/admin/tutors/...` | admin | Verify tutors |
 | GET/PUT | `/api/admin/users/...` | admin | Manage users |
+| POST | `/api/tutors/me/documents` | tutor | Upload verification files (private) |
+| GET/DELETE | `/api/tutors/me/documents/:name` | owner/admin | Open or remove a file |
+| GET | `/api/reviews?tutorId=...` | public | Tutor feedback |
+| POST | `/api/reviews` | student | Rate a tutor after an accepted application |
