@@ -11,6 +11,7 @@ const postRoutes = require('./routes/posts');
 const applicationRoutes = require('./routes/applications');
 const adminRoutes = require('./routes/admin');
 const reviewRoutes = require('./routes/reviews');
+const statsRoutes = require('./routes/stats');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -58,6 +59,7 @@ app.use('/api/posts', postRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/stats', statsRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

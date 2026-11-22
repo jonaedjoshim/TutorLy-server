@@ -71,3 +71,4 @@ Demo accounts:
 | GET/DELETE | `/api/tutors/me/documents/:name` | owner/admin | Open or remove a file |
 | GET | `/api/reviews?tutorId=...` | public | Tutor feedback |
 | POST | `/api/reviews` | student | Rate a tutor after an accepted application |
+| GET | `/api/stats` | public | Live counts computed from the database |

@@ -188,6 +188,13 @@ const run = async () => {
     const reviewList = await request(app).get(`/api/reviews?tutorId=${tutorReg.body.user.id}`);
     check('reviews listed publicly', reviewList.body.data.length === 1);
 
+    console.log('\n[smoke] public stats');
+    const stats = await request(app).get('/api/stats');
+    check('public stats returns 200', stats.status === 200);
+    check('stats count verified tutors from database', stats.body.stats.tutors === 1);
+    check('stats count approved posts from database', stats.body.stats.posts === 1);
+    check('stats average rating from reviews', stats.body.stats.rating === 5);
+
     const nonAdmin = await request(app)
       .get('/api/admin/stats')
       .set('Authorization', `Bearer ${studentToken}`);
